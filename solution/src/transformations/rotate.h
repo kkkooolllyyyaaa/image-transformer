@@ -7,6 +7,6 @@
 
 #include "../image/image.h"
 
-bool rotate_image(struct image *image);
+struct image *rotate_image(const struct image *image);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_ROTATE_H

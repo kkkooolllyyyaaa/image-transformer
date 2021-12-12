@@ -7,13 +7,21 @@
 
 #include <stdbool.h>
 
-// file may not exist for every function
-bool open_file_read(char *file_name, FILE *file);
+enum io_return_code {
+    OPEN_OK = 0,
+    CLOSE_OK,
+    OPEN_ERROR,
+    CLOSE_ERROR,
+    FILE_IS_CLOSED_ERROR,
+    INCORRECT_FILE_NAME
+};
 
-bool open_file_write(char *file_name, FILE *file);
+enum io_return_code open_file_read(const char *file_name, FILE **file);
 
-bool close_file(FILE *file);
+enum io_return_code open_file_write(const char *file_name, FILE **file);
 
-static void open_file_in_mode(char *file_name, FILE *file, char *mode);
+enum io_return_code close_file(FILE **file);
+
+static enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_FILE_UTIL_H

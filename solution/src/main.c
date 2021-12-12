@@ -1,15 +1,34 @@
 #include <stdio.h>
+#include "file_worker/file_util.h"
 #include "image/image.h"
+#include "input_format/bmp.h"
+#include "transformations/rotate.h"
 
 int main(int argc, char **argv) {
-//    (void) argc; (void) argv; // supress 'unused parameters' warning
     if (argc != 3) {
-        // error
+        fprintf(stderr, "Invalid count of arguments\n");
         return 1;
     }
-    FILE *input_file;
-    FILE *output_file;
-    struct image *read_image = NULL;
 
+    FILE *input_file = NULL;
+    FILE *output_file = NULL;
+    struct image *transformed_image = NULL;
+
+    if (open_file_read(argv[1], &input_file)) {
+        struct image *read_image = NULL;
+        if (from_bmp(input_file, read_image) == READ_OK) {
+            transformed_image = rotate_image(read_image);
+        }
+        close_file(&input_file);
+    }
+
+    if (transformed_image != NULL) {
+        if (open_file_write(argv[2], &output_file)) {
+            if (to_bmp(output_file, transformed_image) == WRITE_OK) {
+                // dosmth
+            }
+            close_file(&output_file);
+        }
+    }
     return 0;
 }

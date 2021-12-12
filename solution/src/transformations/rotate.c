@@ -3,3 +3,9 @@
 //
 
 #include "rotate.h"
+
+//todo napisat' rotating
+struct image *rotate_image(const struct image *image) {
+    struct image *rotated_image = NULL;
+    return rotated_image;
+}

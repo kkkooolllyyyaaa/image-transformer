@@ -2,37 +2,33 @@
 // Created by Цыпандин Николай Петрович on 11.12.2021.
 //
 
-#include "file_util.h"
 #include <fileio.h>
 #include <stdio.h>
+#include "file_util.h"
 
-// file may not exist for every function
-bool open_file_read(char *file_name, FILE *file) {
-    if (!file_name && !file) {
-        open_file_in_mode(file_name, file, "r");
-        return true;
-    }
-    return false;
+enum io_return_code open_file_read(const char *file_name, FILE **file) {
+    char *mode = "r";
+    return open_file_in_mode(file_name, file, mode);
 }
 
-bool open_file_write(char *file_name, FILE *file) {
-    if (!file_name && !file) {
-        open_file_in_mode(file_name, file, "w");
-        return true;
-    }
-    return false;
+enum io_return_code open_file_write(const char *file_name, FILE **file) {
+    char *mode = "w";
+    return open_file_in_mode(file_name, file, mode);
 }
 
-bool close_file(FILE *file) {
-    if (!file) {
-        // returns 0 if file closed successfully
-        if (!fclose(*file))
-            return true;
-        return false;
-    }
-    return false;
+enum io_return_code close_file(FILE **file) {
+    if (!*file)
+        return FILE_IS_CLOSED_ERROR;
+    if (fclose(*file))
+        return CLOSE_ERROR;
+    return CLOSE_OK;
 }
 
-static void open_file_in_mode(char *file_name, FILE *file, char *mode) {
+static enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode) {
+    if (!file_name)
+        return INCORRECT_FILE_NAME;
     *file = fopen(file_name, mode);
+    if (!*file)
+        return OPEN_ERROR;
+    return OPEN_OK;
 }
