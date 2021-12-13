@@ -17,13 +17,14 @@ enum read_status {
     READ_INVALID_SIGNATURE,
     READ_INVALID_BITS,
     READ_INVALID_HEADER,
-    OK_CONTINUE
+    READ_CONTINUE
 };
 
 /*  serializer   */
 enum write_status {
     WRITE_OK = 0,
-    WRITE_ERROR
+    WRITE_ERROR,
+    WRITE_CONTINUE
 };
 
 enum read_status from_bmp(FILE *in, struct image **img);
@@ -35,5 +36,11 @@ static enum read_status header_read(FILE *in, struct bmp_header *header);
 static enum read_status header_check_valid(struct bmp_header *header);
 
 static enum read_status read_pixels(FILE *file, struct image *image);
+
+static enum write_status init_24bit_header(struct bmp_header *header, const struct image *image);
+
+static enum write_status header_write(FILE *out, struct bmp_header *header);
+
+static enum write_status write_pixels(FILE *file, const struct image *image);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_BMP_H

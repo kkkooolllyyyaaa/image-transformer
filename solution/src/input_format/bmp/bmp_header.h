@@ -25,4 +25,19 @@ struct __attribute__((packed)) bmp_header {
     uint32_t biClrImportant;
 };
 
+// without: width, height, fileSize, sizeImage
+static const struct bmp_header LAYOUT_24_BIT = {
+        .bfSignature = 19778,
+        .bfReserved = 0,
+        .bOffBits = sizeof(struct bmp_header),
+        .biSize = 40,
+        .biPlanes = 1,
+        .biBitCount = 24,
+        .biCompression = 0,
+        .biXPelsPerMeter = 2834,
+        .biYPelsPerMeter = 2834,
+        .biClrUsed = 0,
+        .biClrImportant = 0,
+};
+
 #endif //ASSIGNMENT_IMAGE_ROTATION_BMP_HEADER_H
