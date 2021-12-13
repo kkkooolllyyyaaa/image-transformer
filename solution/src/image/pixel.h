@@ -4,7 +4,9 @@
 
 #ifndef ASSIGNMENT_IMAGE_ROTATION_PIXEL_H
 #define ASSIGNMENT_IMAGE_ROTATION_PIXEL_H
-#inclid "stdbool.h"
+
+#include  <stdbool.h>
+#include <stdint.h>
 
 struct pixel {
     uint8_t b, g, r;
@@ -18,6 +20,6 @@ struct maybe_pixel {
 struct maybe_pixel some_pixel(struct pixel i);
 
 // Второй случай; можно создать не функцию,
-const struct maybe_pixel none_pixel = { 0 };
+const struct maybe_pixel none_pixel;
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_PIXEL_H

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "file_worker/file_util.h"
 #include "image/image.h"
-#include "input_format/bmp.h"
+#include "input_format/bmp/bmp.h"
 #include "transformations/rotate.h"
 
 int main(int argc, char **argv) {
@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     FILE *output_file = NULL;
     struct image *transformed_image = NULL;
 
-    if (open_file_read(argv[1], &input_file)) {
+    if (open_file_read(argv[1], &input_file) == OPEN_OK) {
         struct image *read_image = NULL;
         if (from_bmp(input_file, read_image) == READ_OK) {
             transformed_image = rotate_image(read_image);
@@ -23,9 +23,11 @@ int main(int argc, char **argv) {
     }
 
     if (transformed_image != NULL) {
-        if (open_file_write(argv[2], &output_file)) {
+        if (open_file_write(argv[2], &output_file) == OPEN_OK) {
             if (to_bmp(output_file, transformed_image) == WRITE_OK) {
-                // dosmth
+                // do_smth
+            } else {
+                // log_smth
             }
             close_file(&output_file);
         }
