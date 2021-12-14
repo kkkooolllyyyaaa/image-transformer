@@ -16,10 +16,8 @@ struct maybe_pixel {
     struct pixel value;
 };
 
-// Первый случай; создаем функцию в помощь
 struct maybe_pixel some_pixel(struct pixel i);
 
-// Второй случай; можно создать не функцию,
-const struct maybe_pixel none_pixel;
-
+// external objects, to use same object everywhere
+extern const struct maybe_pixel none_pixel;
 #endif //ASSIGNMENT_IMAGE_ROTATION_PIXEL_H
