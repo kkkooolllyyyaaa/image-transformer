@@ -1,5 +1,5 @@
 #include "file_worker/file_util.h"
-#include "input_format/bmp/bmp.h"
+#include "input_format/bmp.h"
 #include "transformations/rotate.h"
 #include <stdio.h>
 

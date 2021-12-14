@@ -5,8 +5,8 @@
 #ifndef ASSIGNMENT_IMAGE_ROTATION_BMP_H
 #define ASSIGNMENT_IMAGE_ROTATION_BMP_H
 
-#include "../../image/image.h"
-#include "../../util/util.h"
+#include "../image/image.h"
+#include "../util/util.h"
 #include "bmp_header.h"
 
 #include <stdio.h>
