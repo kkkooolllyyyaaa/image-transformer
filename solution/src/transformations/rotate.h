@@ -13,11 +13,11 @@ typedef struct pixel_coordinates {
 
 typedef coordinates (*rotation_type)(const struct image *image, uint64_t i, uint64_t j);
 
-static coordinates get_coordinates_rotate_left(const struct image *image, uint64_t i, uint64_t j);
+static inline coordinates get_coordinates_rotate_left(const struct image *image, uint64_t i, uint64_t j);
 
-static coordinates get_coordinates_rotate_right(const struct image *image, uint64_t i, uint64_t j);
+static inline coordinates get_coordinates_rotate_right(const struct image *image, uint64_t i, uint64_t j);
 
-static struct image *rotate_image_90(const struct image *image, rotation_type type);
+static inline struct image *rotate_image_90(const struct image *image, rotation_type type);
 
 struct image *rotate_image_left(const struct image *image);
 
