@@ -2,7 +2,6 @@
 // Created by Цыпандин Николай Петрович on 08.12.2021.
 //
 #include "bmp.h"
-#include "../../util/util.h"
 
 static const uint16_t valid_signature = 19778;
 
