@@ -23,6 +23,6 @@ enum io_return_code open_file_write(const char *file_name, FILE **file);
 
 enum io_return_code close_file(FILE **file);
 
-static enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode);
+static inline enum io_return_code open_file_in_mode(const char *file_name, FILE **file, const char *mode);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_FILE_UTIL_H
