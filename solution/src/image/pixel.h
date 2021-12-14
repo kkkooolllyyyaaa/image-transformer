@@ -20,4 +20,5 @@ struct maybe_pixel some_pixel(struct pixel i);
 
 // external objects, to use same object everywhere
 extern const struct maybe_pixel none_pixel;
+
 #endif //ASSIGNMENT_IMAGE_ROTATION_PIXEL_H

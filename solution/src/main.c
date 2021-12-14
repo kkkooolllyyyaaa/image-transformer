@@ -3,6 +3,58 @@
 #include "transformations/rotate.h"
 #include <stdio.h>
 
+#define ERROR_CODE 1
+
+static void log(const char *message);
+
+static void log_stdin(const char *message);
+
+static void clean_up(struct image *image, FILE *file);
+
+int main(int argc, char **argv) {
+    if (argc != 3) {
+        log("Invalid count of arguments");
+        return ERROR_CODE;
+    }
+    log_stdin("PROGRAM STARTED");
+    FILE *input = NULL, *output = NULL;
+    struct image *read_image = NULL, *transformed_image = NULL;
+    char *input_filename = argv[1], *output_filename = argv[2];
+
+    enum io_return_code code = open_file_read(input_filename, &input);
+    log(io_return_code_string[code]);
+    if (code != OPEN_OK)
+        return ERROR_CODE;
+
+    enum read_status read_status = from_bmp(input, &read_image);
+    log(read_status_string[read_status]);
+    if (read_status != READ_OK)
+        return ERROR_CODE;
+
+    transformed_image = rotate_image_left(read_image);
+    clean_up(read_image, input);
+    if (transformed_image) {
+        log("Image is successfully transformed");
+    } else {
+        log("Error, can't transform image");
+        return ERROR_CODE;
+    }
+
+    code = open_file_write(output_filename, &output);
+    log(io_return_code_string[code]);
+    if (code != OPEN_OK)
+        return ERROR_CODE;
+
+    enum write_status write_status = to_bmp(output, transformed_image);
+    log(write_status_string[write_status]);
+    if (write_status != WRITE_OK)
+        return ERROR_CODE;
+    log_stdin("SUCCESS");
+    clean_up(transformed_image, output);
+    log_stdin("PROGRAM ENDS WITH 0 RETURN CODE");
+    return 0;
+}
+
 static void log(const char *message) {
     fprintf(stderr, "%s\n", message);
 }
@@ -11,50 +63,7 @@ static void log_stdin(const char *message) {
     printf("%s\n", message);
 }
 
-int main(int argc, char **argv) {
-    if (argc != 3) {
-        log("Invalid count of arguments");
-        return 1;
-    }
-    log_stdin("PROGRAM STARTED");
-    FILE *input_file = NULL;
-    FILE *output_file = NULL;
-    struct image *transformed_image = NULL;
-    struct image *read_image = NULL;
-
-    enum io_return_code code = open_file_read(argv[1], &input_file);
-    log(io_return_code_string[code]);
-    if (code != OPEN_OK)
-        return 1;
-
-    enum read_status read_status = from_bmp(input_file, &read_image);
-    log(read_status_string[read_status]);
-    if (read_status != READ_OK)
-        return 1;
-
-    transformed_image = rotate_image(read_image);
-    delete_image(read_image);
-    close_file(&input_file);
-
-    if (!transformed_image) {
-        log("Error, can't transform image");
-        return 1;
-    } else {
-        log("Image is successfully transformed");
-    }
-
-    code = open_file_write(argv[2], &output_file);
-    log(io_return_code_string[code]);
-    if (code != OPEN_OK)
-        return 1;
-
-    enum write_status write_status = to_bmp(output_file, transformed_image);
-    log(write_status_string[write_status]);
-    if (write_status != WRITE_OK)
-        return 1;
-    log_stdin("SUCCESS");
-    delete_image(transformed_image);
-    close_file(&output_file);
-    log_stdin("PROGRAM ENDS WITH 0 RETURN CODE");
-    return 0;
+static void clean_up(struct image *image, FILE *file) {
+    delete_image(image);
+    close_file(&file);
 }

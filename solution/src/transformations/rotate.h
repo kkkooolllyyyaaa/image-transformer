@@ -7,6 +7,20 @@
 
 #include "../image/image.h"
 
-struct image *rotate_image(const struct image *image);
+typedef struct pixel_coordinates {
+    uint64_t x, y;
+} coordinates;
+
+typedef coordinates (*rotation_type)(const struct image *image, uint64_t i, uint64_t j);
+
+static coordinates get_coordinates_rotate_left(const struct image *image, uint64_t i, uint64_t j);
+
+static coordinates get_coordinates_rotate_right(const struct image *image, uint64_t i, uint64_t j);
+
+static struct image *rotate_image_90(const struct image *image, rotation_type type);
+
+struct image *rotate_image_left(const struct image *image);
+
+struct image *rotate_image_right(const struct image *image);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_ROTATE_H
