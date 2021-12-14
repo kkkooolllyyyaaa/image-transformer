@@ -5,10 +5,21 @@
 
 static const uint16_t valid_signature = 19778;
 
+const char *read_status_string[] = {
+        [READ_OK] = "Image is successfully read",
+        [READ_INVALID_SIGNATURE]="Error, BMP file has invalid signature, must be 'BM'",
+        [READ_INVALID_BITS]="Error, BMP file is invalid",
+        [READ_INVALID_HEADER]="Error, BMP header is invalid"
+};
+
+const char *write_status_string[] = {
+        [WRITE_OK]= "Image is successfully written",
+        [WRITE_ERROR]="Error, can't write BMP",
+};
+
 static enum read_status header_read(FILE *in, struct bmp_header *header) {
     if (fread(header, sizeof(struct bmp_header), 1, in) == 1)
         return READ_CONTINUE;
-
     return READ_INVALID_HEADER;
 }
 

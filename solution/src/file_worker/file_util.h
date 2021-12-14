@@ -17,6 +17,8 @@ enum io_return_code {
     INCORRECT_FILE_NAME
 };
 
+extern const char *io_return_code_string[];
+
 enum io_return_code open_file_read(const char *file_name, FILE **file);
 
 enum io_return_code open_file_write(const char *file_name, FILE **file);

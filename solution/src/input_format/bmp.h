@@ -22,12 +22,15 @@ enum read_status {
     READ_CONTINUE
 };
 
+extern const char * read_status_string[];
+
 /*  serializer   */
 enum write_status {
     WRITE_OK = 0,
     WRITE_ERROR,
     WRITE_CONTINUE
 };
+extern const char * write_status_string[];
 
 static inline enum read_status header_read(FILE *in, struct bmp_header *header);
 

@@ -3,6 +3,15 @@
 //
 #include "file_util.h"
 
+const char *io_return_code_string[] = {
+        [OPEN_OK] = "File is successfully opened",
+        [CLOSE_OK] ="File is successfully closed",
+        [OPEN_ERROR]="Error when file opening",
+        [CLOSE_ERROR] ="Error when file closing",
+        [FILE_IS_CLOSED_ERROR]="Error, can't work with closed file",
+        [INCORRECT_FILE_NAME]="Error, file name can't be null"
+};
+
 enum io_return_code open_file_read(const char *file_name, FILE **file) {
     const char *mode = "r";
     return open_file_in_mode(file_name, file, mode);
