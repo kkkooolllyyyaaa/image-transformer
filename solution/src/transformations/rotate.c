@@ -15,7 +15,7 @@ struct image *rotate_image(const struct image *image) {
         for (uint64_t j = 0; j < image->width; ++j) {
             struct maybe_pixel pixel = get_pixel(image, i, j);
             if (pixel.valid) {
-                set_pixel(rotated_image, pixel.value, new_height - j - 1, new_width - i - 1);
+                set_pixel(rotated_image, pixel.value, j, new_width - i - 1);
             } else {
                 return NULL;
             }
