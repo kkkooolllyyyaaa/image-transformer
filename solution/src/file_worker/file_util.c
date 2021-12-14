@@ -1,17 +1,15 @@
 //
 // Created by Цыпандин Николай Петрович on 11.12.2021.
 //
-
-#include <stdio.h>
 #include "file_util.h"
 
 enum io_return_code open_file_read(const char *file_name, FILE **file) {
-    char *mode = "r";
+    const char *mode = "r";
     return open_file_in_mode(file_name, file, mode);
 }
 
 enum io_return_code open_file_write(const char *file_name, FILE **file) {
-    char *mode = "w";
+    const char *mode = "w";
     return open_file_in_mode(file_name, file, mode);
 }
 

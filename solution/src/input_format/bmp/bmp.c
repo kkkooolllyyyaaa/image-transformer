@@ -74,8 +74,7 @@ static enum read_status read_pixels(FILE *file, struct image *image) {
 }
 
 static enum write_status init_24bit_header(struct bmp_header *header, const struct image *image) {
-    uint32_t bmp_image_size = (image->width * 3 + (4 - (image->width * 3) % 4)) * image->height;
-
+    uint32_t bmp_image_size = ((image->width * sizeof(struct pixel) + get_padding(image->width)) * image->height;
     *header = LAYOUT_24_BIT;
     header->biWidth = (int32_t) image->width;
     header->biHeight = (int32_t) image->height;
@@ -106,4 +105,3 @@ static enum write_status write_pixels(FILE *file, const struct image *image) {
     }
     return WRITE_CONTINUE;
 }
-

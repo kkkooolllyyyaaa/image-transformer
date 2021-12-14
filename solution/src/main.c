@@ -1,11 +1,7 @@
-#include <inttypes.h>
-#include <stddef.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include "input_format/bmp/bmp.h"
-#include "image/image.h"
-#include "transformations/rotate.h"
 #include "file_worker/file_util.h"
+#include "input_format/bmp/bmp.h"
+#include "transformations/rotate.h"
 
 int main(int argc, char **argv) {
     if (argc != 3) {

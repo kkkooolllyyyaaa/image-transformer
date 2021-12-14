@@ -5,10 +5,10 @@
 #ifndef ASSIGNMENT_IMAGE_ROTATION_IMAGE_H
 #define ASSIGNMENT_IMAGE_ROTATION_IMAGE_H
 
+#include "pixel.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "pixel.h"
 
 struct image {
     uint64_t width, height;
@@ -23,8 +23,8 @@ struct maybe_pixel get_pixel(const struct image *image, size_t row, size_t colum
 
 bool set_pixel(const struct image *image, struct pixel pixel, size_t row, size_t column);
 
-static size_t get_image_size(uint64_t width, uint64_t height);
-
 static bool is_valid_pos(struct image image, size_t pos);
+
+static size_t get_image_size(uint64_t width, uint64_t height);
 
 #endif //ASSIGNMENT_IMAGE_ROTATION_IMAGE_H

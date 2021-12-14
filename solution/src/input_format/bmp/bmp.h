@@ -5,9 +5,9 @@
 #ifndef ASSIGNMENT_IMAGE_ROTATION_BMP_H
 #define ASSIGNMENT_IMAGE_ROTATION_BMP_H
 
-#include <stdio.h>
-#include "../../image/image.h"
 #include "bmp_header.h"
+#include "../../image/image.h"
+#include <stdio.h>
 
 static const uint16_t valid_signature;
 

@@ -6,6 +6,7 @@
 #define ASSIGNMENT_IMAGE_ROTATION_FILE_UTIL_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
 enum io_return_code {
     OPEN_OK = 0,

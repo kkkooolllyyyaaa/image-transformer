@@ -38,10 +38,10 @@ struct maybe_pixel get_pixel(const struct image *image, size_t row, size_t colum
     return some_pixel(image->data[pos]);
 }
 
-static size_t get_image_size(uint64_t width, uint64_t height) {
-    return 3 * sizeof(uint8_t) * width * height;
-}
-
 static bool is_valid_pos(struct image image, size_t pos) {
     return pos < image.width * image.height;
+}
+
+static size_t get_image_size(uint64_t width, uint64_t height) {
+    return sizeof(struct pixel) * width * height;
 }
