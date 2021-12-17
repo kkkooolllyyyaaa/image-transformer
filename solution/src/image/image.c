@@ -5,6 +5,14 @@
 #include "image.h"
 #include "pixel.h"
 
+static bool is_valid_pos(struct image image, size_t pos) {
+    return pos < image.width * image.height;
+}
+
+static size_t get_image_size(uint64_t width, uint64_t height) {
+    return sizeof(struct pixel) * width * height;
+}
+
 struct image *create_image(uint64_t width, uint64_t height) {
     struct image *image = malloc(sizeof(struct image));
     if (image) {
@@ -36,12 +44,4 @@ struct maybe_pixel get_pixel(const struct image *image, size_t row, size_t colum
     if (!is_valid_pos(*image, pos))
         return none_pixel;
     return some_pixel(image->data[pos]);
-}
-
-static bool is_valid_pos(struct image image, size_t pos) {
-    return pos < image.width * image.height;
-}
-
-static size_t get_image_size(uint64_t width, uint64_t height) {
-    return sizeof(struct pixel) * width * height;
 }

@@ -23,8 +23,4 @@ struct maybe_pixel get_pixel(const struct image *image, size_t row, size_t colum
 
 bool set_pixel(const struct image *image, struct pixel pixel, size_t row, size_t column);
 
-static inline bool is_valid_pos(struct image image, size_t pos);
-
-static inline size_t get_image_size(uint64_t width, uint64_t height);
-
 #endif //ASSIGNMENT_IMAGE_ROTATION_IMAGE_H
