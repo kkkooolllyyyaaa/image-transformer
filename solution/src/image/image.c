@@ -25,8 +25,9 @@ struct image *create_image(uint64_t width, uint64_t height) {
 
 void delete_image(struct image *image) {
     if (image) {
-        if (image->data)
+        if (image->data) {
             free(image->data);
+        }
         free(image);
     }
 }

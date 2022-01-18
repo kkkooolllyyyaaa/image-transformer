@@ -17,21 +17,21 @@ int main(int argc, char **argv) {
         return ERROR_CODE;
     }
     log_stdin("PROGRAM STARTED");
-    FILE *input = NULL, *output = NULL;
-    struct image *read_image = NULL, *transformed_image = NULL;
-    char *input_filename = argv[1], *output_filename = argv[2];
 
+    FILE *input = NULL;
+    char *input_filename = argv[1];
     enum io_return_code code = open_file_read(input_filename, &input);
     log(io_return_code_string[code]);
     if (code != OPEN_OK)
         return ERROR_CODE;
 
+    struct image *read_image = NULL;
     enum read_status read_status = from_bmp(input, &read_image);
     log(read_status_string[read_status]);
     if (read_status != READ_OK)
         return ERROR_CODE;
 
-    transformed_image = rotate_image_left(read_image);
+    struct image *transformed_image = rotate_image_left(read_image);
     clean_up(read_image, input);
     if (transformed_image) {
         log("Image is successfully transformed");
@@ -40,6 +40,8 @@ int main(int argc, char **argv) {
         return ERROR_CODE;
     }
 
+    FILE *output = NULL;
+    char *output_filename = argv[2];
     code = open_file_write(output_filename, &output);
     log(io_return_code_string[code]);
     if (code != OPEN_OK)
