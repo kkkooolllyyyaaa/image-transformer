@@ -7,11 +7,7 @@
 
 #include "../image/image.h"
 #include "../util/util.h"
-#include "bmp_header.h"
-
 #include <stdio.h>
-
-static const uint16_t valid_signature;
 
 /*  deserializer   */
 enum read_status {
@@ -22,7 +18,7 @@ enum read_status {
     READ_CONTINUE
 };
 
-extern const char *read_status_string[];
+const char *get_read_status_string(enum read_status r_s);
 
 /*  serializer   */
 enum write_status {
@@ -30,7 +26,8 @@ enum write_status {
     WRITE_ERROR,
     WRITE_CONTINUE
 };
-extern const char *write_status_string[];
+
+const char *get_write_status_string(enum write_status w_s);
 
 enum read_status from_bmp(FILE *in, struct image **img);
 

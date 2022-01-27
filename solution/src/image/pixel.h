@@ -8,7 +8,7 @@
 #include  <stdbool.h>
 #include <stdint.h>
 
-struct pixel {
+struct __attribute__((packed)) pixel {
     uint8_t b, g, r;
 };
 struct maybe_pixel {

@@ -3,7 +3,7 @@
 //
 #include "file_util.h"
 
-const char *io_return_code_string[] = {
+static const char *io_return_code_string[] = {
         [OPEN_OK] = "File is successfully opened",
         [CLOSE_OK] ="File is successfully closed",
         [OPEN_ERROR]="Error when file opening",
@@ -19,6 +19,10 @@ static enum io_return_code open_file_in_mode(const char *file_name, FILE **file,
     if (!*file)
         return OPEN_ERROR;
     return OPEN_OK;
+}
+
+const char *get_io_return_code_string(enum io_return_code i_r_c) {
+    return io_return_code_string[i_r_c];
 }
 
 enum io_return_code open_file_read(const char *file_name, FILE **file) {

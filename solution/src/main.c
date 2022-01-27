@@ -7,7 +7,7 @@
 
 static void log(const char *message);
 
-static void log_stdin(const char *message);
+static void log_stdout(const char *message);
 
 static void clean_up(struct image *image, FILE *file);
 
@@ -16,18 +16,18 @@ int main(int argc, char **argv) {
         log("Invalid count of arguments");
         return ERROR_CODE;
     }
-    log_stdin("PROGRAM STARTED");
+    log("PROGRAM STARTED");
 
     FILE *input = NULL;
-    char *input_filename = argv[1];
+    const char *const input_filename = argv[1];
     enum io_return_code code = open_file_read(input_filename, &input);
-    log(io_return_code_string[code]);
+    log(get_io_return_code_string(code));
     if (code != OPEN_OK)
         return ERROR_CODE;
 
     struct image *read_image = NULL;
     enum read_status read_status = from_bmp(input, &read_image);
-    log(read_status_string[read_status]);
+    log(get_read_status_string(read_status));
     if (read_status != READ_OK)
         return ERROR_CODE;
 
@@ -41,19 +41,18 @@ int main(int argc, char **argv) {
     }
 
     FILE *output = NULL;
-    char *output_filename = argv[2];
+    const char *const output_filename = argv[2];
     code = open_file_write(output_filename, &output);
-    log(io_return_code_string[code]);
+    log(get_io_return_code_string(code));
     if (code != OPEN_OK)
         return ERROR_CODE;
 
     enum write_status write_status = to_bmp(output, transformed_image);
-    log(write_status_string[write_status]);
+    log(get_write_status_string(write_status));
     if (write_status != WRITE_OK)
         return ERROR_CODE;
-    log_stdin("SUCCESS");
     clean_up(transformed_image, output);
-    log_stdin("PROGRAM ENDS WITH 0 RETURN CODE");
+    log_stdout("PROGRAM ENDS WITH 0 RETURN CODE, SUCCESS!");
     return 0;
 }
 
@@ -61,7 +60,7 @@ static void log(const char *message) {
     fprintf(stderr, "%s\n", message);
 }
 
-static void log_stdin(const char *message) {
+static void log_stdout(const char *message) {
     printf("%s\n", message);
 }
 

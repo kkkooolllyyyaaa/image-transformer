@@ -13,6 +13,14 @@ static size_t get_image_size(uint64_t width, uint64_t height) {
     return sizeof(struct pixel) * width * height;
 }
 
+static struct image get_default_image(uint64_t width, uint64_t height) {
+    struct image img = {0};
+    img.width = width;
+    img.height = height;
+    img.data = malloc(get_image_size(width, height));
+    return img;
+}
+
 struct image *create_image(uint64_t width, uint64_t height) {
     struct image *image = malloc(sizeof(struct image));
     if (image) {
