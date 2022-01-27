@@ -121,12 +121,13 @@ static enum write_status header_write(FILE *out, struct bmp_header *header) {
 static enum write_status write_pixels(FILE *file, const struct image *image) {
     const uint64_t width = image->width, height = image->height;
     const uint8_t padding_buffer[PADDING_BUFFER_SIZE] = {0};
+    const uint8_t padding = get_padding(width);
     struct pixel *pixels = image->data;
     for (uint64_t i = 0; i < height; ++i) {
         if (fwrite(pixels + i * width, sizeof(struct pixel), width, file) != width)
             return WRITE_ERROR;
         // write padding bytes
-        if (fwrite(&padding_buffer, 1, 1, file) != 1)
+        if (padding != 0 && !fwrite(&padding_buffer, padding, 1, file))
             return WRITE_ERROR;
     }
     return WRITE_CONTINUE;
