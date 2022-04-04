@@ -2,17 +2,7 @@
 ---
 Лабораторная работа: Поворот картинки
 
-# Подготовка
-
-- Прочитайте главу 12 (стр. 221, 231&ndash;239) и 13 (целиком) "Low-level programming: C, assembly and program execution". 
-
-На защите мы можем обсуждать любые вопросы из учебника из глав 8&ndash;13 включительно.
-
 # Структура BMP файла
-
-BMP файл состоит из заголовка и растрового массива.
-Заголовок задаётся следующей структурой (обратите внимание на атрибут `packed`):
-
 ```c
 // Описание для gcc и clang
 #include  <stdint.h>
@@ -53,40 +43,6 @@ struct bmp_header __attribute__((packed))
 
 1. Изображение имеет ширину 12 пикселей = 12 * 3 байт = 36 байт. Ширина кратна четырём, каждая следующая строчка начинается сразу после предыдущей.
 2. Изображение имеет ширину 5 пикселей. 5 * 3 = 15 байт, ближайшее число кратное четырём (округление вверх) это 16. После каждой строчки будет отступ в 16-15 = 1 байт перед началом следующей.
-
-Обратите внимание: отступы в *байтах*, не в пикселях.
-
-
-
-# Пользователям компилятора от Microsoft 
-
-Вам придётся задать структуру по-другому, без атрибута `packed`:
-
-```c
-#include  <stdint.h>
-#pragma pack(push, 1)
-struct bmp_header 
-{
-        uint16_t bfType;
-        uint32_t  bfileSize;
-        uint32_t bfReserved;
-        uint32_t bOffBits;
-        uint32_t biSize;
-        uint32_t biWidth;
-        uint32_t  biHeight;
-        uint16_t  biPlanes;
-        uint16_t biBitCount;
-        uint32_t biCompression;
-        uint32_t biSizeImage;
-        uint32_t biXPelsPerMeter;
-        uint32_t biYPelsPerMeter;
-        uint32_t biClrUsed;
-        uint32_t  biClrImportant;
-};
-#pragma pack(pop)
-```
-
-Объяснение этого прочтите находится на страницах 235&ndash;239 учебника. 
 
 
 # Об архитектуре
